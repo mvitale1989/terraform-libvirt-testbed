@@ -1,0 +1,22 @@
+#cloud-config
+
+preserve_hostname: false
+hostname: "${hostname}"
+
+users:
+- name: admin
+  shell: /bin/bash
+  ssh_authorized_keys:
+  - ${ join("\n  -", split("|", ssh_authorized_keys)) }
+  sudo: "ALL = (ALL) NOPASSWD: ALL"
+
+write_files:
+- path: /etc/systemd/resolved.conf
+  content: |
+    [Resolve]
+    DNS=1.1.1.1
+    FallbackDNS=8.8.8.8
+
+runcmd:
+- systemctl enable systemd-resolved
+- systemctl start  systemd-resolved
