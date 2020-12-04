@@ -16,6 +16,8 @@ module "testbed" {
   ssh_authorized_keys = var.ssh_authorized_keys
 }
 
-output "all_domain_ips" {
-  value = module.testbed.all_domain_ips
-}
+# TODO currently broken, check readme
+#
+#output "all_domain_ips" {
+#  value = module.testbed.all_domain_ips
+#}

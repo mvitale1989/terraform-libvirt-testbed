@@ -17,3 +17,4 @@ Take a look at the [example dir](./example/) for a minimal code sample.
 
 Gotchas:
 - The length of `prefix + network name` must not exceed 16 characters, as it's used to name the network interface itself, as well as the libvirt network. This is required because of a currently existing race condition (in either the libvirt provider or libvirt itself), which tries to name multiple network interfaces the same, when creating networks in parallel, and thus failing creation.
+- Unfortunately `wait_for_lease` seems to be currently broken, and may hang forever after instance creation. Until that's fixed, you can find out the IPs of the created instances with `virsh net-dhcp-leases --network <your network name here>`
