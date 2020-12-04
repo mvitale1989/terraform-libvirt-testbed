@@ -11,7 +11,7 @@ Requirements:
 
 ### How to use
 
-As with any Terraform module, you can simply instantiate this module in your Terraform plans.
+As with any Terraform module, you can simply instantiate this module in your Terraform plans. You will then be able to access those instance as the user `admin`, through your ssh key or with password `admin`.
 
 Take a look at the [example dir](./example/) for a minimal code sample.
 

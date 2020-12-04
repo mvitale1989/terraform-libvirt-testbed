@@ -7,7 +7,9 @@ users:
 - name: admin
   shell: /bin/bash
   ssh_authorized_keys:
-  - ${ join("\n  -", split("|", ssh_authorized_keys)) }
+  - ${ join("\n  - ", split("|", ssh_authorized_keys)) }
+  passwd: "$6$8XZKAd.d9l0J3Y.$xHl4Fd9lqSEw2nmYMID31nWVY/NBNU1EbUfKyVxrVmBmYT9g.gYJAFXWSFcu/EChJ0hlFvFVk9Uy2dnBTglrQ/"
+  lock_passwd: false
   sudo: "ALL = (ALL) NOPASSWD: ALL"
 
 write_files:

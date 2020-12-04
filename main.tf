@@ -69,7 +69,9 @@ resource "libvirt_domain" "domain" {
     iterator = network
     content {
       network_id     = libvirt_network.network[network.value].id
-      wait_for_lease = true
+      # TODO currently broken, may hang forever after instance creation
+      #      Better to rely on a manual `virsh net-dhcp-leases --network ...` for now
+      #wait_for_lease = true
     }
   }
 
