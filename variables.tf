@@ -3,7 +3,7 @@
 #
 variable "prefix" {
   type    = string
-  default = "testbed-"
+  default = "test-"
 }
 
 #
@@ -21,6 +21,8 @@ variable "networks" {
 #
 # `domains` options:
 # - `networks` (list of strings): name of all networks this node is connected to
+# - `vcpu` (number): number of CPUs of the VM
+# - `memory` (number): memory size of the VM, in MBs
 #
 variable "domains" {
   type = map(any)

@@ -55,8 +55,8 @@ resource "libvirt_network" "network" {
 resource "libvirt_domain" "domain" {
   for_each  = var.domains
   name      = "${var.prefix}${each.key}"
-  vcpu      = 1
-  memory    = 1024
+  vcpu      = lookup(each.value, "vcpu", 1)
+  memory    = lookup(each.value, "memory", 1024)
   running   = true
   cloudinit = libvirt_cloudinit_disk.cloudinit[each.key].id
 
