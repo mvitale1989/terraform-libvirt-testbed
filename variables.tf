@@ -32,7 +32,7 @@ variable "domains" {
 #
 variable "image" {
   type = string
-  default = "https://cloud.debian.org/images/cloud/OpenStack/current-10/debian-10-openstack-amd64.qcow2"
+  default = "https://cloud.debian.org/images/cloud/OpenStack/10.7.3-20201230/debian-10.7.2-20201230-openstack-amd64.qcow2"
 }
 
 #
@@ -54,5 +54,5 @@ variable "ssh_authorized_keys" {
 
 locals {
   all_domain_ips = flatten([ for domain in libvirt_domain.domain : domain.network_interface[*].addresses ])
-  # TODO also return map of domain -> public IP; e.g. to feed an ansible inventory
+  # TODO also return map of domain -> public IPs, for ease of use
 }
