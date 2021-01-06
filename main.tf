@@ -69,8 +69,7 @@ resource "libvirt_domain" "domain" {
     iterator = network
     content {
       network_id     = libvirt_network.network[network.value].id
-      # TODO currently broken, check readme
-      #wait_for_lease = true
+      wait_for_lease = var.wait_for_lease
     }
   }
 

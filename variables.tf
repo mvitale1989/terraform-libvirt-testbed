@@ -36,6 +36,15 @@ variable "image" {
 }
 
 #
+# Whether terraform will wait for the VMs to get an IP lease, before
+# NB: disabled by default as possibly broken. Seems to work only for the simplest cases (e.g. 1 machine = 1 interface)
+#
+variable "wait_for_lease" {
+  type = bool
+  default = false
+}
+
+#
 # authorized ssh keys for the `admin` user, on the instances
 #
 variable "ssh_authorized_keys" {
