@@ -38,8 +38,8 @@ variable "image" {
 }
 
 #
-# Whether terraform will wait for the VMs to get an IP lease, before
-# NB: disabled by default as possibly broken. Seems to work only for the simplest cases (e.g. 1 machine = 1 interface)
+# Whether terraform will wait for the VMs to get an IP lease, before marking the domains as created
+# NB: disabled by default, see README
 #
 variable "wait_for_lease" {
   type = bool

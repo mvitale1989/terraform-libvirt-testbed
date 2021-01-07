@@ -16,7 +16,7 @@ module "testbed" {
   ssh_authorized_keys = var.ssh_authorized_keys
 }
 
-# TODO currently broken, see README
+# NB: upstream libvirt plugin needs a fix for this to work with this example, see README
 #
 #output "all_domain_ips" {
 #  value = module.testbed.all_domain_ips
