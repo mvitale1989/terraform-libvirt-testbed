@@ -52,10 +52,10 @@ resource "libvirt_network" "network" {
 #
 
 resource "libvirt_volume" "volume" {
-  for_each = zipmap(
+  for_each = try(zipmap(
     flatten([for domain, spec in var.domains : [for i in range(0, length(spec.volumes)) : "${domain}-${i}"]]),
     flatten([for domain, spec in var.domains : [for i in range(0, length(spec.volumes)) : spec.volumes[i]]]),
-  )
+  ), [])
   name = "${each.key}.qcow2"
   size = each.value
 }
@@ -88,7 +88,7 @@ resource "libvirt_domain" "domain" {
   }
 
   dynamic "disk" {
-    for_each = range(0, length(each.value["volumes"]))
+    for_each = try(range(0, length(each.value["volumes"])), [])
     iterator = disk_number
     content {
       volume_id = libvirt_volume.volume["${each.key}-${disk_number.value}"].id
