@@ -23,6 +23,7 @@ variable "networks" {
 # - `networks` (list of strings): name of all networks this node is connected to
 # - `vcpu` (number): number of CPUs of the VM
 # - `memory` (number): memory size of the VM, in MBs
+# - `volumes` (list of strings): a list of additional disks for the VM, each element indicating its size in bytes
 #
 variable "domains" {
   type = map(any)
