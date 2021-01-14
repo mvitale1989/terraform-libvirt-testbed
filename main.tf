@@ -87,6 +87,14 @@ resource "libvirt_domain" "domain" {
     }
   }
 
+  dynamic "disk" {
+    for_each = [ i in range(0, length(each.value["volumes"])) ]
+    iterator = disk
+    content {
+      volume_id = libvirt_volume.volume["${each.key}-${i}"].id
+    }
+  }
+
   console {
     type        = "pty"
     target_port = "0"
