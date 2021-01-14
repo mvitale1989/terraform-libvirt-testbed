@@ -56,7 +56,7 @@ resource "libvirt_volume" "volume" {
     flatten([for domain, spec in var.domains : [for i in range(0, length(spec.volumes)) : "${domain}-${i}"]]),
     flatten([for domain, spec in var.domains : [for i in range(0, length(spec.volumes)) : spec.volumes[i]]]),
   )
-  name = each.key
+  name = "${each.key}.qcow2"
   size = each.value
 }
 
