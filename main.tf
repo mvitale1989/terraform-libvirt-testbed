@@ -12,7 +12,7 @@ data "template_file" "userdata" {
   for_each = var.domains
   template = file("${path.module}/cloudinit/user-data")
   # Ugly hack warning: TF doesn't like when we pass anything other than strings as template variables
-  vars     = {
+  vars = {
     hostname            = each.key
     ssh_authorized_keys = join("|", var.ssh_authorized_keys)
   }
@@ -42,7 +42,7 @@ resource "libvirt_network" "network" {
   name      = "${var.prefix}${each.key}"
   autostart = true
   mode      = each.value["is_public"] ? "nat" : "none"
-  addresses = [ each.value["cidr"] ]
+  addresses = [each.value["cidr"]]
   bridge    = "${var.prefix}${each.key}"
 }
 
@@ -53,8 +53,8 @@ resource "libvirt_network" "network" {
 
 resource "libvirt_volume" "volume" {
   for_each = zipmap(
-    flatten([ for domain, spec in var.domains : [ for i in range(0, length(spec.volumes)) : "${domain}-${i}" ]]),
-    flatten([ for domain, spec in var.domains : [ for i in range(0, length(spec.volumes)) : spec.volumes[i] ]]),
+    flatten([for domain, spec in var.domains : [for i in range(0, length(spec.volumes)) : "${domain}-${i}"]]),
+    flatten([for domain, spec in var.domains : [for i in range(0, length(spec.volumes)) : spec.volumes[i]]]),
   )
   name = each.key
   size = each.value
@@ -88,10 +88,10 @@ resource "libvirt_domain" "domain" {
   }
 
   dynamic "disk" {
-    for_each = [ i in range(0, length(each.value["volumes"])) ]
-    iterator = disk
+    for_each = range(0, length(each.value["volumes"]))
+    iterator = disk_number
     content {
-      volume_id = libvirt_volume.volume["${each.key}-${i}"].id
+      volume_id = libvirt_volume.volume["${each.key}-${disk_number.value}"].id
     }
   }
 

@@ -14,7 +14,7 @@ variable "prefix" {
 #       condition (as of 0.6.3)
 #
 variable "networks" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }
 
@@ -26,7 +26,7 @@ variable "networks" {
 # - `volumes` (list of strings): a list of additional disks for the VM, each element indicating its size in bytes
 #
 variable "domains" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }
 
@@ -34,7 +34,7 @@ variable "domains" {
 # VM image to use. Must be qcow2 format and support cloudinit
 #
 variable "image" {
-  type = string
+  type    = string
   default = "https://cloud.debian.org/images/cloud/OpenStack/10.7.3-20201230/debian-10.7.2-20201230-openstack-amd64.qcow2"
 }
 
@@ -43,7 +43,7 @@ variable "image" {
 # NB: disabled by default, see README
 #
 variable "wait_for_lease" {
-  type = bool
+  type    = bool
   default = false
 }
 
@@ -51,11 +51,11 @@ variable "wait_for_lease" {
 # authorized ssh keys for the `admin` user, on the instances
 #
 variable "ssh_authorized_keys" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 locals {
-  all_domain_ips = flatten([ for domain in libvirt_domain.domain : domain.network_interface[*].addresses ])
+  all_domain_ips = flatten([for domain in libvirt_domain.domain : domain.network_interface[*].addresses])
   # TODO also return map of domain -> public IPs, for ease of use
 }
