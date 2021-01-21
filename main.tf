@@ -27,7 +27,7 @@ resource "libvirt_cloudinit_disk" "cloudinit" {
 resource "libvirt_volume" "rootfs" {
   for_each       = var.domains
   name           = "${var.prefix}${each.key}.qcow2"
-  size           = 8589934592
+  size           = lookup(each.value, "rootfs", 8589934592)
   base_volume_id = libvirt_volume.baseimage.id
 }
 
